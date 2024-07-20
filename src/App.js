@@ -1,12 +1,10 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Category from "./components/Categories"
+import Category from "./components/home/Categories"
+import Home from "./pages/Home";
 function App() {
   return (
-    <div >
-    <Navbar/>
-    <Category/>
-    </div>
+  <Home/>
   );
 }
 export default App;
