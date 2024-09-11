@@ -1,17 +1,48 @@
-
-import react  , {useState} from "react";
-import { useGlobalContext } from "../usecontext/context";
-
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGlobalContext } from '../usecontext/context';
+import axios from 'axios';
 
 const Buy = () => {
-  const { Buy, Allcategories } = useGlobalContext(); 
+  const { productId } = useParams(); // Extract productId from URL
+  const { Allcategories } = useGlobalContext();
   const [showChat, setShowChat] = useState(false);
-  if (Buy === null) {
+  const [messageContent, setMessageContent] = useState('');
+
+  useEffect(() => {
+    if (!productId) {
+      console.log('No product ID provided');
+      return;
+    }
+    // Fetch additional data if needed
+  }, [productId]);
+
+  if (!productId) {
     return <div>No item selected</div>;
   }
 
-  const Item = Allcategories[Buy];
-  
+  const Item = Allcategories.find(item => item._id === productId);
+
+  if (!Item) {
+    return <div>Item not found</div>;
+  }
+
+  const handleSendMessage = async () => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/products/message/${productId}`, {
+        message: messageContent,
+      }, {
+        headers: {
+          'auth-token': localStorage.getItem('token'),
+        },
+      });
+      console.log('Message sent:', response.data);
+      setMessageContent(''); // Clear the message content after sending
+    } catch (error) {
+      console.error('Error sending message:', error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col my-12 lg:flex-row p-4 lg:p-8">
       <div className="lg:w-3/5">
@@ -28,13 +59,20 @@ const Buy = () => {
         </div>
         <div className="bg-white p-4 mt-4 border border-gray-300 rounded shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">{Item.fullName}</h1>
+          <textarea
+            id="query"
+            rows="5"
+            value={messageContent}
+            onChange={(e) => setMessageContent(e.target.value)}
+            className="mt-1 p-3 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Send a message to the seller"
+          ></textarea>
           <button
             className="mt-4 w-full bg-green-600 text-white py-2 rounded"
-            onClick={() => setShowChat(true)}
+            onClick={handleSendMessage}
           >
-            Chat with seller
+            Message to seller
           </button>
-         
         </div>
       </div>
       <div className="lg:w-2/5 lg:pl-8 mt-8 lg:mt-0">
@@ -59,3 +97,4 @@ const Buy = () => {
 };
 
 export default Buy;
+

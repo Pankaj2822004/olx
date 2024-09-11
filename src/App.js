@@ -13,7 +13,9 @@ import Contact from "./components/contactus";
 import Buy from "./components/Buy";
 import Alert from "./components/Alert";
 import UserLogo from "./components/UserLogo";
-
+import MyProducts from "./components/MyProducts"
+import Saved from "./components/savedcollections"
+import ChatPage from "./components/message/ChatPage"
 function App() {
   const [alert, setalert] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -49,7 +51,12 @@ function App() {
             <Route path="/category" element={<CategoryItems />} />
             <Route path="/about" element={<About />} />
             <Route path="/contactus" element={<Contact />} />
-            <Route path="/buy" element={<Buy />} />
+            <Route path="/savedcollections" element={<Saved />} />
+            <Route path="/buy/:productId" element={<Buy />} />
+            <Route path="/chat" element={ <ChatPage/>} />
+
+
+            <Route path="/myproducts" element={<MyProducts showAlert={showAlert} setLoggedIn={setLoggedIn} handleLogin={handleLogin} />} />
           </Routes>
         </div>
       </Router>

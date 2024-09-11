@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 // Define the schema for the Product
 const productSchema = new mongoose.Schema({
   img: { type: String, required: true },
@@ -7,7 +7,8 @@ const productSchema = new mongoose.Schema({
   cost: { type: String, required: true },
   Location: { type: String, required: true },
   Date: { type: String, required: true },
-  type: { type: String, required: true }
+  type: { type: String, required: true } ,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 // Create a model from the schema

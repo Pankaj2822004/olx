@@ -20,7 +20,7 @@ const CategoryItems = () => {
                 <a href="#">
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.cost}</h5>
                 </a>
-                <p className="font-normal text-gray-700 dark:text-gray-400">{item.description}</p>
+                <p className="font-normal text-black dark:text-gray-400">{item.desc}</p>
                 <div className="info flex justify-between mt-auto">
                   <p className='text-gray-700 dark:text-gray-400'>{item.Location}</p>
                   <p className='text-slate-500'> {item.Date}</p>
