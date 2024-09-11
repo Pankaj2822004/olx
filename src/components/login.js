@@ -29,11 +29,14 @@ let navigate=useNavigate();
       }),
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     if (json.success) {
-      localStorage.setItem("token", json.authtoken);
+      // console.log({json})
+      localStorage.setItem("token", json.acc);
+      localStorage.setItem("user", JSON.stringify(json));
+
       props.handleLogin(credentials.email);
-      props.setLoggedIn(true);
+      props.setLoggedIn(json);
       props.showAlert("Login Successfully", "success");    
       navigate("/");
 
@@ -159,3 +162,6 @@ let navigate=useNavigate();
     </>
   );
 }
+
+
+

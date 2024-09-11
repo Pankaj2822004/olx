@@ -6,6 +6,7 @@ import img4 from "../images/audi-logo-1969-download.png";
 import tesle from "../images/tesla-logo-2007-full-download.png";
 import img5 from "../images/subaru-logo-2019-download.png";
 import BMW from "../images/bmw-logo-1917-download.png";
+import { Link} from "react-router-dom";
 const Footer = () => {
   return (
     <div className="-my-0 my-40">
@@ -30,10 +31,9 @@ const Footer = () => {
           </select>
           <select id="countries" className=" bg-gray-300 px-1 mx-32 my-8 ">
             <option defaultValue>About us</option>
-            <option value="US">Customer support</option>
-            <option value="CA">Services</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+            {/* <option value="US"><Link to="/contactus">Contact </Link></option>
+            <option value="CA"><Link to="/about">About</Link></option> */}
+           
           </select>
           <select id="countries" className=" bg-gray-300 px-1  my-8 ">
             <option defaultValue>Trending Locations</option>

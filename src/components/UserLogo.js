@@ -19,7 +19,7 @@ const UserLogo = ({ email }) => {
     top: '20px',
     right: '20px',
     zIndex: 9999,
-    margin: '-12px 190px',
+    margin: '-17px 190px',
   };
 
   // Conditionally modify style if initials exist
