@@ -45,15 +45,16 @@ const removeUser= ( userId)=>{
 console.log({socketUsers})
 
         //recieve message from user and send to the recipient
-        socket.on("sendMessage",({message,roomId,recieverId})=>{
+        socket.on("sendMessage",({message,roomId,recieverId, senderId, messageId})=>{
           const socketId = socketUsers.find(user=>user.id===recieverId)?.socketId;
           if(socketId){
-            socket.to(socketId).emit({message,roomId})
+            socket.to(socketId).emit( "recieveMessage", {message,roomId, senderId, _id:messageId})
           }
           // save message to db
           const newMessage = new Message({
             message,
             roomId,
+            senderId
           })
           newMessage.save()
 
@@ -77,6 +78,9 @@ app.use("/api/contact", require("./routes/contact"));
 // app.use("/api", require("./routes/auth"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/products"));
+app.use("/api/chats", require("./routes/room"));
+app.use("/api/messages", require("./routes/message"));
+
 
 // Define the port to run the server on
 const port = 5000;

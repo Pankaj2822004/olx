@@ -12,6 +12,11 @@ const MessageSchema = new mongoose.Schema({
     required: true,
   },
 
+  senderId:{
+    type: mongoose.Schema.Types.ObjectId,
+    required:true
+  }
+
 },{timestamps:true});
 
 module.exports = mongoose.model('Message', MessageSchema);

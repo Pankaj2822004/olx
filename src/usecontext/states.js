@@ -182,11 +182,11 @@ const States = (props) => {
 console.log({socket})
   // Fetch logged-in state from localStorage
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const user = localStorage.getItem('user');
+    if (user) {
       try {
-        const decodeToken = jwtDecode(token);
-        setLoggedIn({ loggedIn: true, userId: decodeToken.user.id });
+        const currentUser = JSON.parse(user);
+        setLoggedIn({ loggedIn: true, userId: currentUser.userId });
       } catch (error) {
         console.error('Error decoding token:', error);
       }

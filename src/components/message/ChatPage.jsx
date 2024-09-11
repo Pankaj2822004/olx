@@ -1,9 +1,13 @@
 import React from 'react';
 import UserList from './UserList';
 import ChatBox from './ChatBox';
+import ChatProvider from './ChatProvider';
 
 const ChatPage = () => {
+  
   return (
+    <ChatProvider>
+
     <div className="flex h-screen">
       {/* Left Section: User List */}
       <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-200">
@@ -15,6 +19,8 @@ const ChatPage = () => {
         <ChatBox />
       </div>
     </div>
+    </ChatProvider>
+
   );
 };
 

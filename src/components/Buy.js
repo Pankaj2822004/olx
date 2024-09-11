@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGlobalContext } from '../usecontext/context';
+import { BASE_URL, useGlobalContext } from '../usecontext/context';
 import axios from 'axios';
 
 const Buy = () => {
   const { productId } = useParams(); // Extract productId from URL
-  const { Allcategories } = useGlobalContext();
+  const { Allcategories, loggedIn } = useGlobalContext();
   const [showChat, setShowChat] = useState(false);
   const [messageContent, setMessageContent] = useState('');
 
@@ -41,7 +41,16 @@ const Buy = () => {
     } catch (error) {
       console.error('Error sending message:', error.response?.data || error.message);
     }
+
   };
+
+  const handleCreateRoom = ()=>{
+  loggedIn?.userId &&  axios.get( BASE_URL+ "/chats/"+loggedIn?.userId+"/"+Item.user).then(res=>{
+      window.location.replace("/chat?chatId="+res.data?._id)
+    })
+  }
+
+  console.log(Item)
 
   return (
     <div className="flex flex-col my-12 lg:flex-row p-4 lg:p-8">
@@ -69,7 +78,7 @@ const Buy = () => {
           ></textarea>
           <button
             className="mt-4 w-full bg-green-600 text-white py-2 rounded"
-            onClick={handleSendMessage}
+            onClick={handleCreateRoom}
           >
             Message to seller
           </button>
