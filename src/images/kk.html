@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:5000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes</title>
+    <link rel="stylesheet" href="./kk_files/index.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <nav>
+                <a href="http://127.0.0.1:5000/" class="logo">My Notes</a>
+                <a href="http://127.0.0.1:5000/add_note" class="add-note-btn">Add New Note</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notes Section -->
+    <section class="notes-section">
+        <div class="container">
+            <h1 class="section-title">Your Notes</h1>
+            
+            <div class="notes-grid">
+                
+                <div class="note-card">
+                    <h2 class="note-title">green house gases</h2>
+                    <p class="note-content">explain</p>
+                    <div class="note-actions">
+                        <button class="edit-btn" onclick="openEditModal(&#39;green house gases&#39;, &#39;explain&#39;)">Edit</button>
+                        <form action="http://127.0.0.1:5000/delete_note" method="post" class="delete-form">
+                            <input type="hidden" name="title" value="green house gases">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                        <button class="summarize-btn" onclick="summarizeNote(&#39;explain&#39;, this)">Summarize</button>
+                    </div>
+                    <p class="note-summary" style="display: none;"></p> <!-- Placeholder for summary -->
+                </div>
+                
+                <div class="note-card">
+                    <h2 class="note-title">python</h2>
+                    <p class="note-content">programming languages</p>
+                    <div class="note-actions">
+                        <button class="edit-btn" onclick="openEditModal(&#39;python&#39;, &#39;programming languages&#39;)">Edit</button>
+                        <form action="http://127.0.0.1:5000/delete_note" method="post" class="delete-form">
+                            <input type="hidden" name="title" value="python">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                        <button class="summarize-btn" onclick="summarizeNote(&#39;programming languages&#39;, this)">Summarize</button>
+                    </div>
+                    <p class="note-summary" style="display: block;">Summary:  programming languages are programming languages . Programming languages include languages such as Java, Java and Java . programming languages. Programming languages. programming languages: Java, Python, Java, C, Java . languages .</p> <!-- Placeholder for summary -->
+                </div>
+                
+                <div class="note-card">
+                    <h2 class="note-title">system desigining</h2>
+                    <p class="note-content">system designing</p>
+                    <div class="note-actions">
+                        <button class="edit-btn" onclick="openEditModal(&#39;system desigining&#39;, &#39;system designing&#39;)">Edit</button>
+                        <form action="http://127.0.0.1:5000/delete_note" method="post" class="delete-form">
+                            <input type="hidden" name="title" value="system desigining">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                        <button class="summarize-btn" onclick="summarizeNote(&#39;system designing&#39;, this)">Summarize</button>
+                    </div>
+                    <p class="note-summary" style="display: none;"></p> <!-- Placeholder for summary -->
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">×</span>
+            <h2>Edit Note</h2>
+            <form action="http://127.0.0.1:5000/edit_note" method="post" id="editForm">
+                <input type="hidden" name="old_title" id="editOldTitle">
+                <div class="form-group">
+                    <label for="editTitle">Title</label>
+                    <input type="text" name="title" id="editTitle" class="form-input" required="">
+                </div>
+                <div class="form-group">
+                    <label for="editContent">Content</label>
+                    <textarea name="content" id="editContent" class="form-input" rows="5" required=""></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 Notes App. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function openEditModal(title, content) {
+            document.getElementById('editOldTitle').value = title;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editContent').value = content;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        async function summarizeNote(content, button) {
+            const summaryElement = button.parentElement.nextElementSibling;
+
+            // Display loading message
+            summaryElement.style.display = 'block';
+            summaryElement.textContent = 'Summarizing...';
+
+            try {
+                const response = await fetch('/summarize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    summaryElement.textContent = `Summary: ${result.summary}`;
+                } else {
+                    summaryElement.textContent = `Error: ${result.error}`;
+                }
+            } catch (error) {
+                summaryElement.textContent = 'Error: Could not connect to the server.';
+            }
+        }
+    </script>
+
+
+</body></html>
