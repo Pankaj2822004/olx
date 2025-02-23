@@ -25,6 +25,7 @@ router.get('/messages', fetchUser, async (req, res) => {
 
 router.get('/myproducts', fetchUser, async (req, res) => {
   try {
+    console.log('Fetching products for user:', req.user); // Debug user
     const products = await Product.find({ user: req.user.id });
     res.json(products);
   } catch (error) {
@@ -32,6 +33,7 @@ router.get('/myproducts', fetchUser, async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 router.post('/message/:productId', fetchUser, async (req, res) => {
   const { productId } = req.params;
   const { message } = req.body;
@@ -74,5 +76,7 @@ router.post('/', fetchUser, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+
 
 module.exports = router;

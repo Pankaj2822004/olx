@@ -16,35 +16,66 @@ export default function Login(props) {
     return () => clearInterval(interval);
   }, [images.length]);
 let navigate=useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-      }),
-    });
-    const json = await response.json();
-    // console.log(json);
-    if (json.success) {
-      // console.log({json})
-      localStorage.setItem("token", json.acc);
-      localStorage.setItem("user", JSON.stringify(json));
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const response = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: credentials.email,
+      password: credentials.password,
+    }),
+  });
+  
+  const json = await response.json();
+  // Check if login is successful
+  if (json.success) {
+    // Store the received token (correct key is json.authtoken, not json.acc)
+    localStorage.setItem("token", json.authtoken);
+    localStorage.setItem("user", JSON.stringify(json));
+    
+    console.log("received token:", json.authtoken); // Ensure token is logged correctly
+    
+    props.handleLogin(credentials.email);
+    props.setLoggedIn(json);
+    props.showAlert("Login Successfully", "success");
+    navigate("/");
+  } else {
+    alert("Invalid credentials");
+  }
+};
 
-      props.handleLogin(credentials.email);
-      props.setLoggedIn(json);
-      props.showAlert("Login Successfully", "success");    
-      navigate("/");
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const response = await fetch("http://localhost:5000/api/auth/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: credentials.email,
+  //       password: credentials.password,
+  //     }),
+  //   });
+  //   const json = await response.json();
+  //   // console.log(json);
+  //   if (json.success) {
+  
+  //     localStorage.setItem("token", json.authtoken);
+  //     localStorage.setItem("user", JSON.stringify(json));
+  //     console.log("received token" ,json.acc);
+  //     props.handleLogin(credentials.email);
+  //     props.setLoggedIn(json);
+  //     props.showAlert("Login Successfully", "success");    
+  //     navigate("/");
 
 
-    } else {
-      alert("Invalid credentials");
-    }
-  };
+  //   } else {
+  //     alert("Invalid credentials");
+  //   }
+  // };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };

@@ -68,19 +68,12 @@ const Buy = () => {
         </div>
         <div className="bg-white p-4 mt-4 border border-gray-300 rounded shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">{Item.fullName}</h1>
-          <textarea
-            id="query"
-            rows="5"
-            value={messageContent}
-            onChange={(e) => setMessageContent(e.target.value)}
-            className="mt-1 p-3 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Send a message to the seller"
-          ></textarea>
+        
           <button
             className="mt-4 w-full bg-green-600 text-white py-2 rounded"
             onClick={handleCreateRoom}
           >
-            Message to seller
+            chat with seller
           </button>
         </div>
       </div>

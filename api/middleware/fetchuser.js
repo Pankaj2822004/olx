@@ -1,27 +1,25 @@
-var jwt = require("jsonwebtoken");
-const JWT_SECRET = "pankajisgoodboy";
 
-const fetchuser = (req, res, next) => {
-  // Extract token from the 'auth-token' header
-  const token = req.header("auth-token");
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'pankajisgoodboy'; // Ensure this is consistent across your application
+
+const fetchUser = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  console.log("Token received by server:", token); // Debug token reception
+
   if (!token) {
-    console.log('No token provided');
-    return res.status(401).send({ error: "Please authenticate using a valid token" });
+    return res.status(401).json({ error: 'No token provided' });
   }
 
   try {
-    // Verify the token using the secret key
-    const data = jwt.verify(token, JWT_SECRET);
-    
-    // Attach the decoded user data to the request object
-    req.user = data.user;
-
-    // Proceed to the next middleware or route handler
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded.user;
     next();
   } catch (error) {
-    // Handle invalid token or any other errors during verification
-    res.status(401).send({ error: "Please authenticate using a valid token" });
+    console.error('Invalid token error:', error.message);
+    res.status(401).json({ error: 'Invalid token' });
   }
 };
 
-module.exports = fetchuser;
+module.exports = fetchUser;
+
+

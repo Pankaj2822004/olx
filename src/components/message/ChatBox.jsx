@@ -31,7 +31,7 @@ useEffect(()=>{
       {/* Messages Display */}
       <div className="p-4 overflow-y-auto flex-1 flex  flex-col gap-4   ">
         {messages.map((message) => (
-          <div key={message._id} className={`mb-2 p-2 max-w-xs ${message.senderId === loggedIn?.userId ? 'bg-blue-100 self-end' : 'bg-green-100 self-start'} rounded-lg`}>
+          <div style={{margin: "49px 19px 1px"}}   key={message._id} className={`mb-2 p-2 max-w-xs ${message.senderId === loggedIn?.userId ? 'bg-blue-100 self-end' : 'bg-green-100 self-start'} rounded-lg`}>
             <span className="text-sm text-gray-700">{message.senderId===loggedIn?.userId? me?.name: reciever?.name }: </span>
             {message.message}
           </div>
