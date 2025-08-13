@@ -10,7 +10,7 @@ import { Link} from "react-router-dom";
 const Footer = () => {
   return (
     <div className="-my-0 my-40">
-      <div style={{margin: "41px 94px 28px -9px"}} className=" w-[1350px] h-40  bg-gray-300 my-6">
+      <div style={{margin: "41px 94px 28px -9px"}} className=" w-[1350px] h-40  bg-emerald-700 my-6">
         <div className="check my-5">
           <div className="line h-[2px] w-[45%] bg-slate-800 my-5 mx-auto"></div>
         </div>

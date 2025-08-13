@@ -147,9 +147,9 @@ const Navbar = ({ showAlert, loggedIn, setLoggedIn }) => {
     <div>
       {/* <nav className="bg-white border-gray-200 dark:bg-gray-900"> */}
       <nav
-        className=" border-gray-200 dark:bg-gray-900"
+      className="bg-emerald-100 shadow-md border-gray-200 "
         style={{
-          backgroundColor: "gainsboro",
+          // backgroundColor: "gainsboro",
           margin: "-11px 0px -44px 1px",
           padding: " 8px 0px 44px 1px",
         }}

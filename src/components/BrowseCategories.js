@@ -144,7 +144,8 @@ const BrowseCategories = ({ loggedIn, showAlert }) => {
   };
 
   return (
-    <div className="my-11 max-w-full p-2 h-[1000px] bg-purple-300">
+    <div className="my-11 max-w-full p-2 h-[1000px] bg-gradient-to-r from-teal-400 via-emerald-300 to-line-200  ">
+  
       <div className="flex h-14 justify-between">
         <h2 className="text-stone-950 font-semibold">Browse Categories</h2>
         <Link className="underline cursor-pointer" to="/seeall">
